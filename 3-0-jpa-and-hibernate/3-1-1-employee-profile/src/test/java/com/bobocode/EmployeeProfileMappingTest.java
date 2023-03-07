@@ -67,7 +67,7 @@ class EmployeeProfileMappingTest {
     @DisplayName("Saving an employee throws an exception when the first name is null")
     void saveEmployeeWithoutFirstName() {
         Employee employee = createRandomEmployee();
-        employee.setFistName(null);
+        employee.setFirstName(null);
 
         assertThatExceptionOfType(PersistenceException.class).isThrownBy(() ->
                 emUtil.performWithinTx(entityManager -> entityManager.persist(employee)));
@@ -195,7 +195,7 @@ class EmployeeProfileMappingTest {
     private Employee createRandomEmployee() {
         Employee employee = new Employee();
         employee.setEmail(RandomStringUtils.randomAlphabetic(15));
-        employee.setFistName(RandomStringUtils.randomAlphabetic(15));
+        employee.setFirstName(RandomStringUtils.randomAlphabetic(15));
         employee.setLastName(RandomStringUtils.randomAlphabetic(15));
         return employee;
     }

@@ -1,8 +1,11 @@
 package com.bobocode.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 /**
  * todo:
@@ -16,10 +19,20 @@ import lombok.Setter;
  * - override equals() and hashCode() considering entity id
  */
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Getter
 @Setter
+@Entity
+@Table(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
     private Company company;
 }

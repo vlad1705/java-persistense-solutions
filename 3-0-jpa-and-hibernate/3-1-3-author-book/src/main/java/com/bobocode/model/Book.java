@@ -1,9 +1,15 @@
 package com.bobocode.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,8 +31,18 @@ import java.util.Set;
 @Getter
 @Setter
 public class Book {
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @NaturalId
+    @Column(nullable = false, unique = true)
     private String isbn;
-    private Set<Author> authors;
+
+    @Setter(AccessLevel.PRIVATE)
+    @ManyToMany(mappedBy = "books")
+    private Set<Author> authors = new HashSet<>();
 }
